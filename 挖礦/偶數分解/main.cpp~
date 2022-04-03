@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define V vector
+#define S second
+#define F first
+#define MEM(x) memset(x, 0, sizeof(x))
+#define ALL(x) begin(x), end(x)
+#define REP(i, N, ...) for(int i = 0, ##__VA_ARGS__; i < N; i++)
+#define FOR(i, a, b, ...) for(int i = (a), ##__VA_ARGS__; i <= (b); i++)
+#define EP emplace
+#define EB emplace_back
+constexpr int mxN = 1e8+1;
+V<int> vis(mxN, 0);
+V<int> prime;
+
+void f_prime() {
+	vis[0] = vis[1] = 1;
+	for(int i = 2; i * i < mxN; ++i) {
+		if( vis[i] ) continue;
+		for(int j = i * i; j < mxN; j += i) 
+			vis[j] = true;
+	}
+	FOR(i, 2, mxN - 1) {
+		if( !vis[i] ) prime.EB(i);
+	}
+}
+int main () {
+	f_prime();
+	cout << prime.size() << endl;
+}
